@@ -93,15 +93,13 @@ class LineSearchBase:
             prev_fx = curr_fx
             curr_fx, curr_gx, curr_hx = f(x, self.CALC_HESSIAN)
 
-            self.updatePath(x.copy(), curr_fx)
-            self._print_iteration(i, x, curr_fx, max_iter)
-
-
             # check for convergence
             if abs(curr_fx - prev_fx) < obj_tol or np.linalg.norm(x - prev_x) < param_tol: #or not curr_gx.any():
                 min_found = True
                 break
 
+            self.updatePath(x.copy(), curr_fx)
+            self._print_iteration(i, x, curr_fx, max_iter)
         
         return x, curr_fx, min_found
 
@@ -129,39 +127,6 @@ class NewtonMethod(LineSearchBase):
             # if the hessian is not invertible, we can't proceed
             px = None
         return px
-    
-    # def minimize(self, f, x0, obj_tol, param_tol, max_iter):
-    #     self.path = {
-    #         "x": [],
-    #         "fx": []
-    #     }
-
-    #     x = np.array(x0, dtype=float)
-    #     x_history = [x0]
-        
-    #     epsilon = 1e-6
-
-    #     f_prev = float("inf")
-    #     x_prev = x.copy()
-
-    #     for iteration in range(max_iter):
-    #         f_x, g_x, h_x = f(x, True)
-    #         self.updatePath(x_prev, f_x)
-
-    #         if iteration > 0:
-    #             if np.sum(np.abs(x - x_prev)) < param_tol:
-    #                 return x, f_x, x_history, True
-    #             if (f_prev - f_x) < obj_tol:
-    #                 return x, f_x, x_history, True
-
-    #         if self.method == "Newton":
-    #             regularized_hessian = h_x + epsilon * np.eye(h_x.shape[0])
-    #             h_x_inv = np.linalg.pinv(regularized_hessian)
-    #             p = -np.matmul(h_x_inv, g_x)
-
-    #             # newton decrement
-    #             lambda_squared = np.dot(p, np.dot(h_x, p))
-
 
 
     

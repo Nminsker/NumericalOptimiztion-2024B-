@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 MARK_BY_ALGO = {
-    "Gradient Descent": {"color": "r"},
-    "Newton's Method": {"linestyle": "dashed", "color": "b"}
+    "Gradient Descent": {"color": "r", "marker": "*"},
+    "Newton's Method": {"linestyle": "dashed", "color": "b", "marker": "o"},
 }
 
 def contour_plot(f, x_lim, y_lim, title, paths, levels=100, file_name=None):
@@ -37,7 +37,7 @@ def contour_plot(f, x_lim, y_lim, title, paths, levels=100, file_name=None):
 def line_plot(values_dict, title):
     fig, ax = plt.subplots(1, 1)
     for algoName, values in values_dict.items():
-        x = np.linspace(0, len(values)-1, len(values))
+        x = np.linspace(1, len(values), len(values))
         ax.plot(x, values, **MARK_BY_ALGO[algoName], label=algoName)
     ax.set_title(f"{title}: Function values vs iteration number")
     ax.set_xlabel('# Iteration')
