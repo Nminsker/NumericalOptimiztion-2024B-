@@ -77,3 +77,64 @@ def f_smooth_triangle(x, eval=False):
         ]) if eval else None
 
     return f_x, g_x, h_x
+
+def qp(x, eval=False):
+    f = x[0] ** 2 + x[1] ** 2 + (x[2] + 1) ** 2
+    g = np.array([2 * x[0], 2 * x[1], 2 * x[2] + 2]).T
+    h = np.array([[2, 0, 0], [0, 2, 0], [0, 0, 2]]) if eval else None
+    return f, g, h
+
+
+def qp_ineq_constraint_1(x, eval=False):
+    f = -x[0]
+    g = np.array([-1, 0, 0]).T
+    h = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0]]) if eval else None
+    return f, g, h
+
+
+def qp_ineq_constraint_2(x, eval=False):
+    f = -x[1]
+    g = np.array([0, -1, 0]).T
+    h = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0]]) if eval else None
+    return f, g, h
+
+
+def qp_ineq_constraint_3(x, eval=False):
+    f = -x[2]
+    g = np.array([0, 0, -1]).T
+    h = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0]]) if eval else None
+    return f, g, h
+
+
+def lp(x, eval=False):
+    f = -x[0] - x[1]
+    g = np.array([-1, -1]).T
+    h = np.array([[0, 0], [0, 0]]) if eval else None
+    return f, g, h
+
+
+def lp_ineq_constraint_1(x, eval=False):
+    f = -x[0] - x[1] + 1
+    g = np.array([-1, -1]).transpose()
+    h = np.array([[0, 0], [0, 0]]) if eval else None
+    return f, g, h
+
+
+def lp_ineq_constraint_2(x, eval=False):
+    f = x[1] - 1
+    g = np.array([0, 1]).T
+    h = np.array([[0, 0], [0, 0]]) if eval else None
+    return f, g, h
+
+
+def lp_ineq_constraint_3(x, eval=False):
+    f = x[0] - 2
+    g = np.array([1, 0]).T
+    h = np.array([[0, 0], [0, 0]]) if eval else None
+    return f, g, h
+
+def lp_ineq_constraint_4(x, eval=False):
+    f = -x[1]
+    g = np.array([0, -1]).T
+    h = np.array([[0, 0], [0, 0]]) if eval else None
+    return f, g, h
